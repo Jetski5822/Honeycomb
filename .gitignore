@@ -51,7 +51,5 @@ CodeCoverage/
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
 
-# NUnit
-*.VisualState.xml
-TestResult.xml
-nunit-*.xml
+# Test output, including dotnet-coverage reports (test-results/coverage.xml). Never committed.
+test-results/

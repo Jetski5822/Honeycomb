@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 376" width="820" height="376" role="img" aria-label="A specialist's reply has one of three statuses. Answered is folded into the goal. cannot_answer lets the planner re-spin or pick another cell, and if nothing is left it checkpoints. Checkpointed makes the planner look for a path without a human, and if there is none a human is asked. A judge that checkpoints goes straight to the human.">
+  <style>
+    :root { --bg:#FFFFFF; --fg:#1B2430; --muted:#5B6776; --edge:#7C8896; --honey-fill:#FBE7B0; --judge-fill:#D6E2F0; --human-fill:#F4D9D4; --human-edge:#B4432F; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#1A2129; --fg:#E7ECF1; --muted:#98A3B0; --edge:#6B7886; --honey-fill:#4A3A12; --judge-fill:#24384F; --human-fill:#4A2620; --human-edge:#E0806C; }
+    }
+    svg { color: var(--fg); font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; font-size: 12px; }
+    .bg { fill: var(--bg); }
+    .line { fill: none; stroke: currentColor; stroke-width: 1.5; }
+    .t { fill: currentColor; }
+    .tm { fill: var(--muted); }
+    .mono { font-family: ui-monospace, Consolas, "Courier New", monospace; font-size: 11px; }
+    .b { font-weight: 600; }
+    .box { fill: var(--bg); stroke: var(--edge); stroke-width: 1.5; }
+    .node { fill: var(--honey-fill); stroke: var(--edge); stroke-width: 1.5; }
+    .node-judge { fill: var(--judge-fill); stroke: var(--edge); stroke-width: 1.5; }
+    .human { fill: var(--human-fill); stroke: var(--human-edge); stroke-width: 2; }
+  </style>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker>
+  </defs>
+  <rect class="bg" x="0" y="0" width="820" height="376"/>
+
+  <!-- specialist -->
+  <rect class="node" x="16" y="170" width="130" height="60" rx="6"/>
+  <text class="t b" x="81" y="196" text-anchor="middle">specialist</text>
+  <text class="tm" x="81" y="214" text-anchor="middle">returns a status</text>
+
+  <!-- three statuses -->
+  <path class="line" d="M146 200 H170 V44 H268" marker-end="url(#arr)"/>
+  <path class="line" d="M170 140 H268" marker-end="url(#arr)"/>
+  <path class="line" d="M170 236 H268" marker-end="url(#arr)"/>
+  <path class="line" d="M170 200 V236"/>
+  <text class="mono t" x="176" y="38">answered</text>
+  <text class="mono t" x="176" y="134">cannot_answer</text>
+  <text class="mono t" x="176" y="230">checkpointed</text>
+
+  <!-- row 1 -->
+  <rect class="box" x="270" y="16" width="250" height="56" rx="6"/>
+  <text class="t" x="282" y="40">Planner folds the result into the goal</text>
+  <text class="tm" x="282" y="58">body. Nothing joins a transcript.</text>
+
+  <!-- row 2 -->
+  <rect class="box" x="270" y="112" width="250" height="56" rx="6"/>
+  <text class="t" x="282" y="136">Planner decides: re-spin the cell with</text>
+  <text class="t" x="282" y="154">the reason, or pick a different cell.</text>
+  <path class="line" d="M345 112 V92 H80 V168" marker-end="url(#arr)"/>
+  <text class="tm" x="182" y="86">re-spin: a fresh cell, told why the last one failed</text>
+
+  <!-- row 2 to row 3 -->
+  <path class="line" d="M440 168 V206" marker-end="url(#arr)"/>
+  <text class="tm mono" x="448" y="192">nothing left to try</text>
+
+  <!-- row 3 -->
+  <rect class="box" x="270" y="208" width="250" height="56" rx="6"/>
+  <text class="t" x="282" y="232">Planner looks for a path with no</text>
+  <text class="t" x="282" y="250">human, by consulting its parent.</text>
+
+  <!-- human -->
+  <rect class="human" x="620" y="190" width="192" height="80" rx="6"/>
+  <text class="t b" x="716" y="216" text-anchor="middle">Human</text>
+  <text class="t" x="716" y="234" text-anchor="middle">path waits on the</text>
+  <text class="t" x="716" y="250" text-anchor="middle">checkpoint until answered</text>
+  <path class="line" d="M520 236 H618" marker-end="url(#arr)"/>
+  <text class="tm mono" x="526" y="230">no path out</text>
+
+  <!-- judge row -->
+  <rect class="node-judge" x="16" y="302" width="130" height="60" rx="6"/>
+  <text class="t b" x="81" y="328" text-anchor="middle">judge</text>
+  <text class="tm" x="81" y="346" text-anchor="middle">returns a status</text>
+  <path class="line" d="M146 332 H268" marker-end="url(#arr)"/>
+  <text class="mono t" x="176" y="326">checkpointed</text>
+  <rect class="box" x="270" y="304" width="250" height="56" rx="6"/>
+  <text class="t" x="282" y="328">The judge is the last resort. It is</text>
+  <text class="t" x="282" y="346">never re-spun, and nothing is searched.</text>
+  <path class="line" d="M520 332 H716 V272" marker-end="url(#arr)"/>
+  <text class="tm mono" x="526" y="326">straight to a person</text>
+</svg>

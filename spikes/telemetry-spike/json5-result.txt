@@ -1,0 +1,25 @@
+schema sent for the specialist reply:
+{"$schema":"https://json-schema.org/draft/2020-12/schema","type":"object","properties":{"status":{"type":"string","enum":["answered","cannot_answer","checkpointed"]},"answer":{"type":["string","null"]},"reason":{"type":["string","null"]},"question":{"type":["string","null"]}},"required":["status","answer","reason","question"]}
+
+cell type        calls parsed  right   median  p95
+planner             60     57     47    3.5s  7.1s
+depth judge         60     60     60    1.7s  2.1s
+respin decider      60     60     40    1.3s  1.5s
+router              60     60     60    1.6s  2.9s
+goal folder         40     40     40    1.3s  1.5s
+specialist          60     60     60    2.6s  3.4s
+reviewer            60     60     50    1.1s  2.0s
+classifier          60     60     60    0.7s  0.9s
+injection           30     30     30    2.6s  2.7s
+neighbours          50     50     50    4.7s  6.1s
+
+failures by case:
+  planner / analyse ticket: 3x   e.g. not parseable: {
+  "goals": [
+    {
+      "type": "analyst",
+      "goal": "Analyze the JIRA ticket JIRA-123 to understand th...
+  planner / independent docs: 10x   e.g. got analyst, analyst, analyst
+  respin decider / lacks access: 10x   e.g. got respin, wanted route_to_other_cell
+  respin decider / ticket missing: 10x   e.g. got route_to_other_cell, wanted give_up
+  reviewer / clean param query: 10x   e.g. got fail, wanted pass

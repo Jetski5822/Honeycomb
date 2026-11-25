@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" width="820" height="400" role="img" aria-label="A planning cell creates three specialists and one judge. Cells that touch may consult each other directly, so the first and third specialist cannot. Results flow back up to the planner, which folds them into the goal. A second planner receives a sub-goal and repeats the same shape.">
+  <style>
+    :root { --bg:#FFFFFF; --fg:#1B2430; --muted:#5B6776; --edge:#7C8896; --honey:#E3A008; --honey-fill:#FBE7B0; --on-honey:#1B2430; --judge-fill:#D6E2F0; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#1A2129; --fg:#E7ECF1; --muted:#98A3B0; --edge:#6B7886; --honey:#F2B632; --honey-fill:#4A3A12; --on-honey:#161B22; --judge-fill:#24384F; }
+    }
+    svg { color: var(--fg); font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; font-size: 12px; }
+    .bg { fill: var(--bg); }
+    .line { fill: none; stroke: currentColor; stroke-width: 1.5; }
+    .t { fill: currentColor; }
+    .tm { fill: var(--muted); }
+    .mono { font-family: ui-monospace, Consolas, "Courier New", monospace; font-size: 11px; }
+    .b { font-weight: 600; }
+    .hex { stroke: var(--edge); stroke-width: 1.5; }
+    .hex-planner { fill: var(--honey); }
+    .hex-spec { fill: var(--honey-fill); }
+    .hex-judge { fill: var(--judge-fill); }
+    .hex-text-planner { fill: var(--on-honey); font-weight: 600; }
+    .chan { stroke: var(--honey); stroke-width: 4; stroke-linecap: round; fill: none; }
+    .group { fill: none; stroke: var(--edge); stroke-width: 1.2; stroke-dasharray: 5 4; }
+    .box { fill: var(--bg); stroke: var(--edge); stroke-width: 1.5; }
+  </style>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker>
+    <polygon id="hex" points="31.18,18 0,36 -31.18,18 -31.18,-18 0,-36 31.18,-18"/>
+  </defs>
+  <rect class="bg" x="0" y="0" width="820" height="400"/>
+
+  <!-- hive posts the goal -->
+  <rect class="box" x="10" y="192" width="60" height="36" rx="6"/>
+  <text class="t b" x="40" y="214" text-anchor="middle">Hive</text>
+  <path class="line" d="M70 210 H138" marker-end="url(#arr)"/>
+  <text class="tm mono" x="104" y="202" text-anchor="middle">goal</text>
+
+  <!-- root planner -->
+  <use href="#hex" class="hex hex-planner" x="170" y="210"/>
+  <text class="hex-text-planner" x="170" y="214" text-anchor="middle" font-size="10.5">planning</text>
+
+  <!-- planner creates the group -->
+  <path class="line" d="M201 210 H308" marker-end="url(#arr)"/>
+  <text class="tm mono" x="255" y="186" text-anchor="middle">creates cells</text>
+  <text class="tm mono" x="255" y="199" text-anchor="middle">goal, neighbours</text>
+
+  <!-- the group -->
+  <rect class="group" x="310" y="100" width="194" height="190" rx="10"/>
+  <text class="tm" x="407" y="278" text-anchor="middle">one planning cell's group</text>
+
+  <use href="#hex" class="hex hex-judge" x="390" y="210"/>
+  <use href="#hex" class="hex hex-spec" x="358.8" y="156"/>
+  <use href="#hex" class="hex hex-spec" x="421.2" y="156"/>
+  <use href="#hex" class="hex hex-spec" x="452.4" y="210"/>
+  <text class="t" x="390" y="214" text-anchor="middle" font-size="10.5">judge</text>
+  <text class="t" x="358.8" y="160" text-anchor="middle" font-size="10.5">readiness</text>
+  <text class="t" x="421.2" y="160" text-anchor="middle" font-size="10.5">analyst</text>
+  <text class="t" x="452.4" y="214" text-anchor="middle" font-size="10.5">impact</text>
+
+  <!-- shared edges: direct consult channels -->
+  <path class="chan" d="M390 138 V174"/>
+  <path class="chan" d="M452.4 174 L421.2 192"/>
+  <path class="chan" d="M358.8 192 L390 174 L421.2 192"/>
+  <path class="chan" d="M421.2 192 V228"/>
+
+  <!-- nested planner -->
+  <path class="line" d="M170 174 V70 H590 V172" marker-end="url(#arr)"/>
+  <text class="tm mono" x="380" y="62" text-anchor="middle">sub-goal that needs breaking down</text>
+  <use href="#hex" class="hex hex-planner" x="590" y="210"/>
+  <text class="hex-text-planner" x="590" y="214" text-anchor="middle" font-size="10.5">planning</text>
+  <path class="line" d="M621 210 H688" marker-end="url(#arr)"/>
+  <text class="tm mono" x="655" y="202" text-anchor="middle">creates</text>
+  <rect class="group" x="690" y="150" width="122" height="120" rx="10"/>
+  <text class="tm" x="751" y="200" text-anchor="middle">same shape,</text>
+  <text class="tm" x="751" y="216" text-anchor="middle">own specialists,</text>
+  <text class="tm" x="751" y="232" text-anchor="middle">own judge</text>
+
+  <!-- results come back -->
+  <path class="line" d="M407 290 V320 H170 V248" marker-end="url(#arr)"/>
+  <path class="line" d="M590 248 V320 H410"/>
+  <text class="tm mono" x="598" y="290">result</text>
+  <text class="t" x="288" y="312" text-anchor="middle">result: facts, evidence, open questions</text>
+  <text class="tm" x="288" y="340" text-anchor="middle">the planner folds them into the goal, no transcript is passed on</text>
+
+  <!-- legend -->
+  <path class="chan" d="M20 380 H48"/>
+  <text class="tm" x="58" y="384">touching edge: the two cells may consult each other directly, without the planner</text>
+</svg>
